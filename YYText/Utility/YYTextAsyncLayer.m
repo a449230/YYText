@@ -155,6 +155,9 @@ static dispatch_queue_t YYTextAsyncLayerGetReleaseQueue() {
                 CGColorRelease(backgroundColor);
                 return;
             }
+            if (size.width < 1 || size.height < 1){
+            return;
+            }
             UIGraphicsBeginImageContextWithOptions(size, opaque, scale);
             CGContextRef context = UIGraphicsGetCurrentContext();
             if (opaque && context) {
@@ -198,6 +201,9 @@ static dispatch_queue_t YYTextAsyncLayerGetReleaseQueue() {
             });
         });
     } else {
+       if (self.bounds.size.width < 1 || self.bounds.size.height < 1){
+            return;
+        }
         [_sentinel increase];
         if (task.willDisplay) task.willDisplay(self);
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.opaque, self.contentsScale);
